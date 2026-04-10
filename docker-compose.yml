@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+
+  traefik:
+    image: traefik:v2.10
+    container_name: traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+
+      # Let's Encrypt config
+      - "--certificatesresolvers.myresolver.acme.email=your-email@gmail.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+
+    ports:
+      - "80:80"
+      - "443:443"
+
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./letsencrypt:/letsencrypt"
+
+  orangehrm:
+    image: orangehrm/orangehrm
+    container_name: orangehrm
+
+    labels:
+      - "traefik.enable=true"
+
+      # domain của bạn
+      - "traefik.http.routers.orangehrm.rule=Host(`chaseqa.duckdns.org`)"
+
+      # bật HTTPS
+      - "traefik.http.routers.orangehrm.entrypoints=websecure"
+      - "traefik.http.routers.orangehrm.tls.certresolver=myresolver"
+
+      # redirect HTTP → HTTPS
+      - "traefik.http.routers.orangehrm-http.rule=Host(`chaseqa.duckdns.org`)"
+      - "traefik.http.routers.orangehrm-http.entrypoints=web"
+      - "traefik.http.routers.orangehrm-http.middlewares=redirect-to-https"
+
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
