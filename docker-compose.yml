@@ -23,6 +23,12 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./letsencrypt:/letsencrypt"
+    networks:
+      - web
+      
+  networks:
+    web:
+        name: web
 
   orangehrm:
     image: orangehrm/orangehrm
