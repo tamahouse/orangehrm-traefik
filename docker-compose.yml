@@ -49,6 +49,20 @@ services:
       - "traefik.http.routers.orangehrm-http.entrypoints=web"
       - "traefik.http.routers.orangehrm-http.middlewares=redirect-to-https"
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      
+  mariadb:
+    image: mariadb:11.0
+    container_name: orange_db
+    restart: unless-stopped
+    volumes:
+      - ./db_orange:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=orangehrm
+      - MYSQL_ROOT_USER=root
+      - MYSQL_DATABASE=orangehrm     
+
+    networks:
+      - web  
 
 # 👇 PHẢI nằm ngoài services
 networks:
