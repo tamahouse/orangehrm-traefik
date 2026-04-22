@@ -50,16 +50,28 @@ services:
       - "traefik.http.routers.orangehrm-http.middlewares=redirect-to-https"
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
       
+  # mariadb:
+   #  image: mariadb:11.0
+   #  container_name: orange_db
+   #  restart: unless-stopped
+   #  volumes:
+   #    - ./db_orange:/var/lib/mysql
+   #  environment:
+   #    - MYSQL_ROOT_PASSWORD=orangehrm
+   #    - MYSQL_ROOT_USER=root
+   #    - MYSQL_DATABASE=orangehrm
+
+
   mariadb:
     image: mariadb:11.0
     container_name: orange_db
-    restart: unless-stopped
-    volumes:
-      - ./db_orange:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=orangehrm
       - MYSQL_ROOT_USER=root
-      - MYSQL_DATABASE=orangehrm     
+      - MYSQL_DATABASE=orangehrm
+    volumes:
+      - mariadb_data:/var/lib/mysql
+   
 
     networks:
       - web  
@@ -68,3 +80,6 @@ services:
 networks:
   web:
     name: web
+    
+volumes:
+  mariadb_data:   
