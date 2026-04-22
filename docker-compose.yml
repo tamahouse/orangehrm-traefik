@@ -29,7 +29,7 @@ services:
       - web
 
   orangehrm:
-    image: orangehrm/orangehrm
+    image: tamahouse/orangehrm:${TAG}
     container_name: orangehrm
 
     networks:
