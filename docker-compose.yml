@@ -33,28 +33,28 @@ services:
     networks:
       - web
 
-  orangehrm:
-    image: tamahouse/orangehrm:${TAG}
-    container_name: orangehrm
+  #orangehrm:
+   # image: tamahouse/orangehrm:${TAG}
+    #container_name: orangehrm
 
-    networks:
-      - web
+   # networks:
+    #  - web
 
-    labels:
-      - "traefik.enable=false"
-      - "traefik.http.routers.orangehrm.rule=Host(`chaseqa.duckdns.org`)"
-      - "traefik.http.routers.orangehrm.entrypoints=websecure"
-      - "traefik.http.routers.orangehrm.tls.certresolver=myresolver"
+    #labels:
+     # - "traefik.enable=false"
+    #  - "traefik.http.routers.orangehrm.rule=Host(`chaseqa.duckdns.org`)"
+    #  - "traefik.http.routers.orangehrm.entrypoints=websecure"
+    #  - "traefik.http.routers.orangehrm.tls.certresolver=myresolver"
 
       # 👇 QUAN TRỌNG (thiếu trước đó)
-      - "traefik.http.services.orangehrm.loadbalancer.server.port=80"
+    #  - "traefik.http.services.orangehrm.loadbalancer.server.port=80"
 
       # HTTP → HTTPS
-      - "traefik.http.routers.orangehrm-http.rule=Host(`chaseqa.duckdns.org`)"
-      - "traefik.http.routers.orangehrm-http.entrypoints=web"
-      - "traefik.http.routers.orangehrm-http.middlewares=redirect-to-https"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
-      - "traefik.http.routers.orangehrm.priority=1"
+     # - "traefik.http.routers.orangehrm-http.rule=Host(`chaseqa.duckdns.org`)"
+     # - "traefik.http.routers.orangehrm-http.entrypoints=web"
+     # - "traefik.http.routers.orangehrm-http.middlewares=redirect-to-https"
+     # - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+     # - "traefik.http.routers.orangehrm.priority=1"
       
   # mariadb:
    #  image: mariadb:11.0
@@ -76,7 +76,7 @@ services:
     labels:
         - "traefik.enable=true"
         #- "traefik.http.routers.allure.rule=Host(`chaseqa.duckdns.org`) && PathPrefix(`/allure`)"
-        - "traefik.http.routers.orangehrm-http.rule=Host(`chaseqa.duckdns.org`)"
+        - "traefik.http.routers.allure-http.rule=Host(`chaseqa.duckdns.org`)"
         - "traefik.http.routers.allure.entrypoints=websecure"
         - "traefik.http.routers.allure-http.entrypoints=web"
         - "traefik.http.services.allure.loadbalancer.server.port=80"
