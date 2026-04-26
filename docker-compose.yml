@@ -84,6 +84,8 @@ services:
         #- "traefik.http.routers.allure.middlewares=allure-strip"
         - "traefik.http.routers.allure.priority=100"
         - "traefik.http.routers.allure.tls.certresolver=myresolver"
+        - "traefik.http.middlewares.nocache.headers.customresponseheaders.Cache-Control=no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
+        - "traefik.http.routers.allure.middlewares=nocache"
     networks:
         - web
 
