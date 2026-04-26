@@ -41,7 +41,7 @@ services:
       - web
 
     labels:
-      - "traefik.enable=true"
+      #- "traefik.enable=true"
       - "traefik.http.routers.orangehrm.rule=Host(`chaseqa.duckdns.org`)"
       - "traefik.http.routers.orangehrm.entrypoints=websecure"
       - "traefik.http.routers.orangehrm.tls.certresolver=myresolver"
@@ -75,7 +75,8 @@ services:
         - /home/***/allure-reports/latest:/usr/share/nginx/html:ro
     labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.allure.rule=Host(`chaseqa.duckdns.org`) && PathPrefix(`/allure`)"
+        #- "traefik.http.routers.allure.rule=Host(`chaseqa.duckdns.org`) && PathPrefix(`/allure`)"
+        - "traefik.http.routers.orangehrm-http.rule=Host(`chaseqa.duckdns.org`)"
         - "traefik.http.routers.allure.entrypoints=websecure"
         - "traefik.http.services.allure.loadbalancer.server.port=80"
         #- "traefik.http.middlewares.allure-strip.stripprefix.prefixes=/allure"
