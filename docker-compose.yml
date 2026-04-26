@@ -61,17 +61,20 @@ services:
    #    - MYSQL_ROOT_USER=root
    #    - MYSQL_DATABASE=orangehrm
 
-  allure-static:
-    image: nginx
-    container_name: allure-static
+  allure-nginx:
+    image: nginx:alpine
+    container_name: allure-nginx
     volumes:
-      - /opt/allure-reports:/usr/share/nginx/html
+      - /home/***/allure-reports:/usr/share/nginx/html:ro
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.allure.rule=Host(`chaseqa.duckdns.org`) && PathPrefix(`/allure`)"
+      - "traefik.http.routers.allure.rule=Host(`chaseq.duckdns.org`) && PathPrefix(`/allure`)"
+      - "traefik.http.routers.allure.entrypoints=web"
+      - "traefik.http.services.allure.loadbalancer.server.port=80"
+
+      # 👇 strip /allure prefix
       - "traefik.http.middlewares.allure-stripprefix.stripprefix.prefixes=/allure"
       - "traefik.http.routers.allure.middlewares=allure-stripprefix"
-      - "traefik.http.services.allure.loadbalancer.server.port=80"
 
   mariadb:
     image: mariadb:11.0
