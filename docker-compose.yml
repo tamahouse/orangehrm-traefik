@@ -66,7 +66,6 @@ services:
     container_name: allure-nginx
     volumes:
       - /home/***/allure-reports/latest:/usr/share/nginx/html:ro
-      - /home/***/allure-nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.allure.rule=Host(`chaseqa.duckdns.org`) && PathPrefix(`/allure`)"
