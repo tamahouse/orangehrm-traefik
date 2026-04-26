@@ -49,6 +49,7 @@ services:
       - "traefik.http.routers.orangehrm-http.entrypoints=web"
       - "traefik.http.routers.orangehrm-http.middlewares=redirect-to-https"
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.allure.priority=1"
       
   # mariadb:
    #  image: mariadb:11.0
@@ -74,6 +75,7 @@ services:
         - "traefik.http.services.allure.loadbalancer.server.port=80"
         - "traefik.http.middlewares.allure-strip.stripprefix.prefixes=/allure"
         - "traefik.http.routers.allure.middlewares=allure-strip"
+        - "traefik.http.routers.allure.priority=100"
     networks:
         - web
 
