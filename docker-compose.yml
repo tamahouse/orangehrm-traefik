@@ -41,7 +41,7 @@ services:
       - web
 
     labels:
-      #- "traefik.enable=true"
+      - "traefik.enable=false"
       - "traefik.http.routers.orangehrm.rule=Host(`chaseqa.duckdns.org`)"
       - "traefik.http.routers.orangehrm.entrypoints=websecure"
       - "traefik.http.routers.orangehrm.tls.certresolver=myresolver"
