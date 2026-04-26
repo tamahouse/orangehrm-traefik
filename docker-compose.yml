@@ -84,6 +84,7 @@ services:
         #- "traefik.http.middlewares.allure-strip.stripprefix.prefixes=/allure"
         #- "traefik.http.routers.allure.middlewares=allure-strip"
         - "traefik.http.routers.allure.priority=100"
+        - "traefik.http.routers.orangehrm.tls.certresolver=myresolver"
     networks:
         - web
 
