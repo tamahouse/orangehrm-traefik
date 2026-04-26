@@ -109,4 +109,5 @@ networks:
     name: web
     
 volumes:
-  mariadb_data:   
+  mariadb_data:
+  allure-reports:
