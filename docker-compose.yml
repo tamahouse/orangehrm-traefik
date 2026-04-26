@@ -41,7 +41,7 @@ services:
       - web
 
     labels:
-      - "traefik.enable=false"
+      - "traefik.enable=true"
       - "traefik.http.routers.orangehrm.rule=Host(`chaseqa.duckdns.org`)"
       - "traefik.http.routers.orangehrm.entrypoints=websecure"
       - "traefik.http.routers.orangehrm.tls.certresolver=myresolver"
@@ -72,7 +72,7 @@ services:
     image: nginx:alpine
     container_name: allure-nginx
     volumes:
-        - /home/roool_roool_02/allure-reports:/usr/share/nginx/html
+        - /home/roool_roool_02/allure-reports:/usr/share/nginx/html/allure
     labels:
         - "traefik.enable=true"
         - "traefik.http.routers.allure.rule=Host(`chaseqa.duckdns.org`) && PathPrefix(`/allure`)"
