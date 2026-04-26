@@ -61,20 +61,20 @@ services:
    #    - MYSQL_ROOT_USER=root
    #    - MYSQL_DATABASE=orangehrm
 
+
   allure-nginx:
     image: nginx:alpine
     container_name: allure-nginx
     volumes:
-      - /home/***/allure-reports/latest:/usr/share/nginx/html:ro
+        - /home/***/allure-reports/latest:/usr/share/nginx/html:ro
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.allure.rule=Host(`chaseqa.duckdns.org`) && PathPrefix(`/allure`)"
-      - "traefik.http.routers.allure.entrypoints=web"
-      - "traefik.http.services.allure.loadbalancer.server.port=80"
-
-      # 👇 strip /allure prefix
-      - "traefik.http.middlewares.allure-stripprefix.stripprefix.prefixes=/allure"
-      - "traefik.http.routers.allure.middlewares=allure-stripprefix"
+        - "traefik.enable=true"
+        - "traefik.http.routers.allure.rule=Host(`chaseqa.duckdns.org`) && PathPrefix(`/allure`)"
+        - "traefik.http.routers.allure.entrypoints=web"
+        - "traefik.http.services.allure.loadbalancer.server.port=80"
+        - "traefik.http.middlewares.allure-rewrite.replacepathregex.regex=^/allure/?(.*)"
+        - "traefik.http.middlewares.allure-rewrite.replacepathregex.replacement=/$1"
+        - "traefik.http.routers.allure.middlewares=allure-rewrite"
 
   mariadb:
     image: mariadb:11.0
