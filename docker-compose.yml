@@ -68,7 +68,7 @@ services:
       - /home/***/allure-reports:/usr/share/nginx/html:ro
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.allure.rule=Host(`chaseq.duckdns.org`) && PathPrefix(`/allure`)"
+      - "traefik.http.routers.allure.rule=Host(`chaseqa.duckdns.org`) && PathPrefix(`/allure`)"
       - "traefik.http.routers.allure.entrypoints=web"
       - "traefik.http.services.allure.loadbalancer.server.port=80"
 
