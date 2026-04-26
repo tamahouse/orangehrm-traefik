@@ -75,6 +75,8 @@ services:
         - "traefik.http.middlewares.allure-rewrite.replacepathregex.regex=^/allure/?(.*)"
         - "traefik.http.middlewares.allure-rewrite.replacepathregex.replacement=/$1"
         - "traefik.http.routers.allure.middlewares=allure-rewrite"
+    networks:
+        - web
 
   mariadb:
     image: mariadb:11.0
