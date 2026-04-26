@@ -77,6 +77,7 @@ services:
         - "traefik.enable=true"
         #- "traefik.http.routers.allure.rule=Host(`chaseqa.duckdns.org`) && PathPrefix(`/allure`)"
         - "traefik.http.routers.allure-http.rule=Host(`chaseqa.duckdns.org`)"
+        - "traefik.http.routers.allure.rule=Host(`chaseqa.duckdns.org`)"
         - "traefik.http.routers.allure.entrypoints=websecure"
         - "traefik.http.routers.allure-http.entrypoints=web"
         - "traefik.http.services.allure.loadbalancer.server.port=80"
