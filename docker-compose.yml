@@ -72,7 +72,7 @@ services:
     image: nginx:alpine
     container_name: allure-nginx
     volumes:
-        - /home/roool_roool_02/allure-reports:/usr/share/nginx/html/allure
+        - /opt/allure-reports:/usr/share/nginx/html/allure
     labels:
         - "traefik.enable=true"
         - "traefik.http.routers.allure.rule=Host(`chaseqa.duckdns.org`) && PathPrefix(`/allure`)"
