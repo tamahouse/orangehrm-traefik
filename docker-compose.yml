@@ -68,30 +68,23 @@ services:
    #    - MYSQL_DATABASE=orangehrm
 
 
-  allure-nginx:
-    image: nginx:alpine
-    container_name: allure-nginx
-    volumes:
-        - /opt/allure-reports:/usr/share/nginx/html
-        - ./nginx/allure.conf:/etc/nginx/conf.d/default.conf
-    labels:
-      - "traefik.enable=true"
+    allure-nginx:
+      image: tamahouse/allure-nginx:latest
 
-      - "traefik.http.routers.allure.rule=Host(`chaseqa.duckdns.org`) && PathPrefix(`/allure`)"
-      - "traefik.http.routers.allure.entrypoints=websecure"
-      - "traefik.http.routers.allure.priority=100"
-      - "traefik.http.routers.allure.tls.certresolver=myresolver"
+      container_name: allure-nginx
 
-      - "traefik.http.services.allure.loadbalancer.server.port=80"
+      volumes:
+        - /opt/allure-reports:/usr/share/nginx/html/allure
 
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.allure.rule=Host(`chaseqa.duckdns.org`) && PathPrefix(`/allure`)"
+        - "traefik.http.routers.allure.entrypoints=websecure"
+        - "traefik.http.services.allure.loadbalancer.server.port=80"
+        - "traefik.http.routers.allure.priority=100"
+        - "traefik.http.routers.allure.tls.certresolver=myresolver"
 
-      # No cache
-      - "traefik.http.middlewares.nocache.headers.customresponseheaders.Cache-Control=no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
-
-
-      - "traefik.http.services.allure.loadbalancer.passhostheader=true"
-      - "traefik.http.services.allure.loadbalancer.healthcheck.path=/"
-    networks:
+      networks:
         - web
 
   mariadb:
