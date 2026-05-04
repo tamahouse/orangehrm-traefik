@@ -5,6 +5,8 @@ services:
   traefik:
     image: traefik:v2.10
     container_name: traefik
+    environment:
+      - DUCKDNS_TOKEN=${DUCKDNS_TOKEN}
     command:
       - "--api.insecure=true"
       - "--providers.docker=true"
@@ -17,6 +19,9 @@ services:
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
       - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
       - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+   #   - "--certificatesresolvers.myresolver.acme.dnschallenge=true"
+    #  - "--certificatesresolvers.myresolver.acme.dnschallenge.provider=duckdns"
+    #  - "--certificatesresolvers.myresolver.acme.dnschallenge.delaybeforecheck=10"
       
       - "--log.level=DEBUG"
       - "--accesslog=true"
