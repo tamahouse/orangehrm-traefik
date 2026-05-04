@@ -63,7 +63,7 @@ jobs:
         if: steps.decision.outputs.build == 'true'
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ${{ github.action_repository }}
           file: docker/allure-nginx/Dockerfile
           push: true
           tags: tamahouse/allure-nginx:latest
