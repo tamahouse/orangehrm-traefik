@@ -53,7 +53,7 @@ jobs:
           password: ${{ secrets.DOCKER_PAT }}
           
       - name: Debug files
-          run: |
+        run: |
             pwd
             ls -la
             find . -maxdepth 3
