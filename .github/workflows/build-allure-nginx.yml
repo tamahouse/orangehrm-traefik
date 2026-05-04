@@ -11,7 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.action_repository }}
+          repository: tamahouse/orangehrm-traefik
           fetch-depth: 2
 
       - name: Check image exists
@@ -63,7 +63,7 @@ jobs:
         if: steps.decision.outputs.build == 'true'
         uses: docker/build-push-action@v6
         with:
-          context: ${{ github.action_repository }}
+          context: orangehrm-traefik
           file: docker/allure-nginx/Dockerfile
           push: true
           tags: tamahouse/allure-nginx:latest
