@@ -11,6 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          repository: ${{ github.action_repository }}
           fetch-depth: 2
 
       - name: Check image exists
