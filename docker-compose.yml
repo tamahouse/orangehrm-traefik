@@ -16,6 +16,7 @@ services:
       - "--certificatesresolvers.myresolver.acme.email=your-email@gmail.com"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
       - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
       
       - "--log.level=DEBUG"
       - "--accesslog=true"
